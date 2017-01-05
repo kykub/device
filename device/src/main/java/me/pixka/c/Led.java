@@ -1,14 +1,18 @@
 package me.pixka.c;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 
 import com.pi4j.io.spi.SpiChannel;
 import com.pi4j.io.spi.SpiDevice;
 import com.pi4j.io.spi.SpiFactory;
 
-@Controller
+@Component
+@Scope("singleton")
 public class Led {
 	private static final boolean debug = false;
+	private boolean run = false; // บอกว่า LED กำลังทำงานอยู่หรือเปล่า
 
 	public static class Constants {
 		public static byte MAX7219_REG_NOOP = 0x0;
@@ -219,6 +223,7 @@ public class Led {
 	}
 
 	public void letter(short deviceId, short asciiCode, short[][] font, boolean redraw) {
+
 		short[] values = Font.value(font, asciiCode);
 
 		short col = Constants.MAX7219_REG_DIGIT0;
@@ -237,7 +242,8 @@ public class Led {
 	/**
 	 * 显示字符串，并滚动
 	 */
-	public void showMessage(String text) {
+	public synchronized void showMessage(String text) {
+
 		this.showMessage(text, Font.CP437_FONT);
 	}
 
@@ -430,14 +436,19 @@ public class Led {
 		return result;
 	}
 
-	public void print(String msg) {
+	public synchronized void print(String msg) {
+		// if (run)
+		// return; // ยังมีคนอื่นทำงานอยู่
+
+		// run = true; // block other process to print
 		System.out.println("Msg:" + msg);
 		for (int i = 0; i < msg.length(); i++) {
-			letter((short) i,(short) msg.charAt(i) , Font.CP437_FONT, false);
-			//this.letter((short) i, (short) msg.charAt(i));
-			
+			letter((short) i, (short) msg.charAt(i), Font.CP437_FONT, false);
+			// this.letter((short) i, (short) msg.charAt(i));
+
 		}
-		
+
 		this.flush();
+		// run = false;
 	}
 }
