@@ -43,7 +43,8 @@ public class DeviceService {
 	}
 
 	/**
-	 *  ค่าล่าสุดของ device
+	 * ค่าล่าสุดของ device
+	 * 
 	 * @param id
 	 * @return
 	 */
@@ -53,6 +54,10 @@ public class DeviceService {
 
 	public Device save(Device device) {
 		return dao.save(device);
-	
+
+	}
+
+	public Device findByRefid(Long refid) {
+		return dao.findByRefid(refid);
 	}
 }

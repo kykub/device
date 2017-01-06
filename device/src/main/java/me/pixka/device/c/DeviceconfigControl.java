@@ -130,4 +130,19 @@ public class DeviceconfigControl {
 		return null;
 
 	}
+
+	public Deviceconfig findRefId(Long id) {
+		return devicecfservice.findByRefId(id);
+	}
+
+	public Deviceconfig last() {
+	
+		return devicecfservice.last();
+	}
+
+	public Deviceconfig save(Deviceconfig deviceconfig) {
+		return devicecfservice.save(deviceconfig);
+	}
+	
+	
 }

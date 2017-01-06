@@ -43,6 +43,24 @@ public class Deviceconfig extends Data{
 	private Boolean port7open = false;
 	private Boolean port8open = false;
 
+	private Long readdsfrom_id; // ใช้สำหรับบอกว่าอ่าน ค่า DS18B20 จาก Device_id ไหน   rest = /readds18b20/{id} 
+	private Long readdhtfrom_id; //ใช้สำหรับบอก Pi ว่าจะต้องอ่าน ค่า ของ DHT จากที่ไหน หรือ ID อะไร rest = /readdht/{id}
+
+	public Long getReaddsfrom_id() {
+		return readdsfrom_id;
+	}
+
+	public void setReaddsfrom_id(Long readdsfrom_id) {
+		this.readdsfrom_id = readdsfrom_id;
+	}
+
+	public Long getReaddhtfrom_id() {
+		return readdhtfrom_id;
+	}
+
+	public void setReaddhtfrom_id(Long readdhtfrom_id) {
+		this.readdhtfrom_id = readdhtfrom_id;
+	}
 
 	@ManyToOne
 	private Devicetype devicetype;

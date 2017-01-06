@@ -142,4 +142,16 @@ public class DeviceControl {
 
 	}
 
+	public Device findByRefid(Long refid) {
+		return deviceservice.findByRefid(refid);
+	}
+
+	public Device save(Device device) {
+		return deviceservice.save(device);
+	}
+
+	public List<Device> findAll() {
+		return deviceservice.list();
+	}
+
 }

@@ -31,4 +31,6 @@ public interface DeviceconfigRepo extends CrudRepository<Deviceconfig, Long> {
 
 	Deviceconfig findById(Long id);
 
+	Deviceconfig findTop1ByOrderByIdDesc();
+
 }

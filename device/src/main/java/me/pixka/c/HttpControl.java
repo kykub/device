@@ -15,6 +15,7 @@ public class HttpControl {
 
 	public String get(String s) throws IOException {
 		CloseableHttpClient httpclient = HttpClients.createDefault();
+		
 		HttpGet httpGet = new HttpGet(s);
 		CloseableHttpResponse response1 = httpclient.execute(httpGet);
 

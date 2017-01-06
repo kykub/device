@@ -74,4 +74,12 @@ public class DeviceconfigService {
 		return dao.findTop1ByDevice_IdAndReadOrderByIdDesc(id, true);
 	}
 
+	public Deviceconfig findByRefId(Long id) {
+		return dao.findByRefid(id);
+	}
+
+	public Deviceconfig last() {
+		return dao.findTop1ByOrderByIdDesc();
+	}
+
 }
