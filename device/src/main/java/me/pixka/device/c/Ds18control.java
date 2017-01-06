@@ -71,7 +71,7 @@ public class Ds18control {
 
 		List<Ds18data> list = service.findGraph(Long.valueOf(p.getId()), sds, eds);
 		List buf = new ArrayList();
-
+		System.out.println("Found ds18data-------------------->"+list.size());
 		for (Ds18data i : list) {
 			Ds d = new Ds();
 			d.setAdddate(ef.format(i.getAdddate()));

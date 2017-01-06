@@ -1,7 +1,6 @@
 package me.pixka.device.d;
 
 import java.math.BigDecimal;
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,8 +19,6 @@ public class Ds18data extends Data {
 
 	@ManyToOne
 	private Device device;
-
-	private Date adddate = new Date();
 
 	public BigDecimal getTmp() {
 		return tmp;
