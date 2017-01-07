@@ -85,7 +85,7 @@ public class Ds18control {
 
 	// produces = "application/json", consumes = "application/json"
 	@CrossOrigin
-	@RequestMapping(value = "/rest/ds18b20/getlas" + "t", method = RequestMethod.POST)
+	@RequestMapping(value = "/rest/ds18b20/getlast", method = RequestMethod.POST)
 	@ResponseBody
 	public Ds getlast(@RequestBody Gettmp p) throws Exception {
 
@@ -121,7 +121,7 @@ public class Ds18control {
 		Ds18data data = service.findlast(id);
 		if (data != null) {
 			Ds d = new Ds();
-			d.setAdddate(ef.format(data.getAdddate()));
+			d.setAdddate(tdf.format(data.getAdddate()));
 			d.setTmp(data.getTmp());
 
 			System.out.println("Found last item :" + d);
@@ -130,7 +130,7 @@ public class Ds18control {
 
 		Ds d = new Ds();
 		d.setAdddate(ef.format(new Date()));
-		d.setTmp(new BigDecimal("0.00"));
+		d.setTmp(new BigDecimal("00.0"));
 
 		System.out.println("New  last item :" + d);
 		return d;
