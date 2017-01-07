@@ -28,9 +28,16 @@ public class Ds18Service {
 	}
 
 	public Ds18data findlast(Long id, Date s, Date e) {
+		/*
 		PageRequest request = new PageRequest(0, 1, Sort.Direction.DESC, "adddate");
 		List list = dao.findlast(id, s, e, request);
 		System.out.println("Last object :" + list.get(0));
 		return (Ds18data) list.get(0);
+		*/
+		
+		Ds18data o = dao.findTop1ByDevice_idAndAdddateBetweenOrderByIdDesc(id, s, e);
+		
+		return o;
 	}
+	
 }

@@ -71,7 +71,7 @@ public class Ds18control {
 
 		List<Ds18data> list = service.findGraph(Long.valueOf(p.getId()), sds, eds);
 		List buf = new ArrayList();
-		System.out.println("Found ds18data-------------------->"+list.size());
+		System.out.println("Found ds18data-------------------->" + list.size());
 		for (Ds18data i : list) {
 			Ds d = new Ds();
 			d.setAdddate(ef.format(i.getAdddate()));
@@ -95,13 +95,22 @@ public class Ds18control {
 		Date eds = tdf.parse(ed + " " + p.getEt() + ":59:00");
 
 		Ds18data data = service.findlast(Long.valueOf(p.getId()), sds, eds);
+		if (data != null) {
+			Ds d = new Ds();
+			d.setAdddate(ef.format(data.getAdddate()));
+			d.setTmp(data.getTmp());
+
+			System.out.println("Found last item :" + d);
+			return d;
+		}
 
 		Ds d = new Ds();
-		d.setAdddate(ef.format(data.getAdddate()));
-		d.setTmp(data.getTmp());
+		d.setAdddate(ef.format(new Date()));
+		d.setTmp(new BigDecimal("0.00"));
 
-		System.out.println("Found last item :" + d);
+		System.out.println("New  last item :" + d);
 		return d;
+
 	}
 
 	class Ds {
