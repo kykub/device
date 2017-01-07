@@ -96,6 +96,15 @@ public class DeviceControl {
 		return buf;
 	}
 
+	@CrossOrigin
+	@RequestMapping(value = "/rest/device/lds", method = RequestMethod.GET)
+	@ResponseBody
+	public List gets() throws JsonProcessingException, IOException {
+
+		List<Device> devices = deviceservice.list();
+		return devices;
+	}
+
 	/*
 	 * @CrossOrigin
 	 * 

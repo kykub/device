@@ -19,5 +19,7 @@ public interface Ds18Repo extends CrudRepository<Ds18data, Long> {
 	@Query(" from  Ds18data  t where t.device_id = ?1 and t.adddate >= ?2 and adddate <= ?3 order  by t.adddate DESC")
 	List findlast(Long id, Date s, Date e, Pageable p);
 
-	Ds18data findTop1ByDevice_idAndAdddateBetweenOrderByIdDesc(Long id,Date s,Date e);
+	Ds18data findTop1ByDevice_idAndAdddateBetweenOrderByIdDesc(Long id, Date s, Date e);
+
+	Ds18data findTop1ByDevice_idOrderByAdddateDesc(Long id);
 }

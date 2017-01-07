@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -84,7 +85,7 @@ public class Ds18control {
 
 	// produces = "application/json", consumes = "application/json"
 	@CrossOrigin
-	@RequestMapping(value = "/rest/ds18b20/getlast", method = RequestMethod.POST)
+	@RequestMapping(value = "/rest/ds18b20/getlas" + "t", method = RequestMethod.POST)
 	@ResponseBody
 	public Ds getlast(@RequestBody Gettmp p) throws Exception {
 
@@ -95,6 +96,29 @@ public class Ds18control {
 		Date eds = tdf.parse(ed + " " + p.getEt() + ":59:00");
 
 		Ds18data data = service.findlast(Long.valueOf(p.getId()), sds, eds);
+		if (data != null) {
+			Ds d = new Ds();
+			d.setAdddate(tdf.format(data.getAdddate()));
+			d.setTmp(data.getTmp());
+
+			System.out.println("Found last item :" + d);
+			return d;
+		}
+
+		Ds d = new Ds();
+		d.setAdddate(ef.format(new Date()));
+		d.setTmp(new BigDecimal("0.00"));
+
+		System.out.println("New  last item :" + d);
+		return d;
+
+	}
+
+	@CrossOrigin
+	@RequestMapping(value = "/readds18b20/{id}", method = RequestMethod.GET)
+	@ResponseBody
+	public Ds get(@PathVariable("id") Long id) throws Exception {
+		Ds18data data = service.findlast(id);
 		if (data != null) {
 			Ds d = new Ds();
 			d.setAdddate(ef.format(data.getAdddate()));

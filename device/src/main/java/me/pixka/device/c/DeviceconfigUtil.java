@@ -12,6 +12,7 @@ import me.pixka.c.HttpControl;
 import me.pixka.data.ISODateAdapter;
 import me.pixka.device.d.Device;
 import me.pixka.device.d.Deviceconfig;
+import me.pixka.device.d.Ds18data;
 
 @Component
 public class DeviceconfigUtil {
@@ -32,6 +33,30 @@ public class DeviceconfigUtil {
 			System.out.println("Return value:" + re);
 			Deviceconfig dfs = g.fromJson(re, Deviceconfig.class);
 			dfs.setRefid(dfs.getId());
+			return dfs;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+
+	/**
+	 * ใช้สำหรับอ่านค่าของ DS18B20 จากตัวอื่น
+	 * 
+	 * @param url
+	 * @param id
+	 * @return
+	 */
+	public Ds18data read18Ds(String url, Long id) {
+		String re = null;
+		try {
+			String get = url + id;
+			System.out.println("Read ds18b20 URL:" + get);
+			re = http.get(get);
+			System.out.println("Return value:" + re);
+			Ds18data dfs = g.fromJson(re, Ds18data.class);
+
 			return dfs;
 		} catch (Exception e) {
 			e.printStackTrace();
