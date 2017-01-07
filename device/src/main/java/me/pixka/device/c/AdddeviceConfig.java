@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import me.pixka.device.d.Device;
 import me.pixka.device.d.Deviceconfig;
 import me.pixka.device.s.DeviceService;
 import me.pixka.device.s.DeviceconfigService;
@@ -45,7 +46,9 @@ public class AdddeviceConfig {
 		 * Long rt = d.getRuntime(); rt = rt * 60 * 1000;// หน่วยเป็นนาที
 		 * ต้องเอามา X ก่อนเข้า d.setRuntime(rt);
 		 */
+		Device device = deviceservice.findById(d.getDevice_id());
 		d.setAdddate(new Date());
+		d.setDevice(device);
 		d = devicecfservice.add(d);
 		System.out.println(d);
 		return d;
