@@ -13,6 +13,7 @@ import me.pixka.data.ISODateAdapter;
 import me.pixka.device.d.Device;
 import me.pixka.device.d.Deviceconfig;
 import me.pixka.device.d.Ds18data;
+import me.pixka.device.d.Watertiming;
 
 @Component
 public class DeviceconfigUtil {
@@ -98,4 +99,20 @@ public class DeviceconfigUtil {
 		return dcf.last();
 	}
 
+	public Watertiming loadWatertiming(String url, Long id) {
+		String re = null;
+		try {
+			String get = url + id;
+			System.out.println("Read Watertiming URL:" + get);
+			re = http.get(get);
+			System.out.println("Return value:" + re);
+			Watertiming dfs = g.fromJson(re, Watertiming.class);
+
+			return dfs;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
 }

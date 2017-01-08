@@ -137,6 +137,7 @@ public class Ds18control {
 
 	}
 
+	
 	class Ds {
 		private BigDecimal tmp;
 		private String adddate;
