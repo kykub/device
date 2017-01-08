@@ -30,7 +30,7 @@ public class WatertimingControl {
 	public Watertiming get(@PathVariable("id") Long id) {
 		Watertiming data = service.findlast(id);
 		if (data != null) {
-			System.out.println("Found last item :" + data);
+			System.out.println("Found water config :" + data);
 			return data;
 		}
 

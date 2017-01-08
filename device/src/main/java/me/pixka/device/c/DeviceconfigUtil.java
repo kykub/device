@@ -100,12 +100,13 @@ public class DeviceconfigUtil {
 	}
 
 	public Watertiming loadWatertiming(String url, Long id) {
+		System.out.println("========== Load water config =============");
 		String re = null;
 		try {
 			String get = url + id;
 			System.out.println("Read Watertiming URL:" + get);
 			re = http.get(get);
-			System.out.println("Return value:" + re);
+			System.out.println("Return water value:" + re);
 			Watertiming dfs = g.fromJson(re, Watertiming.class);
 
 			return dfs;

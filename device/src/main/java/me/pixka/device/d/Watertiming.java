@@ -1,5 +1,7 @@
 package me.pixka.device.d;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -18,7 +20,7 @@ public class Watertiming extends Data {
 	
 	private Long waittime; // เวลาที่รอ default 5 นาที
 	private Long openwatertime; // ช่วงเวลาเปิดน้ำ
-
+	private BigDecimal runat;//ช่วงอณหภูที่ run
 	public Long getDevice_id() {
 		return device_id;
 	}
@@ -57,6 +59,14 @@ public class Watertiming extends Data {
 
 	public void setEnable(Boolean enable) {
 		this.enable = enable;
+	}
+
+	public BigDecimal getRunat() {
+		return runat;
+	}
+
+	public void setRunat(BigDecimal runat) {
+		this.runat = runat;
 	}
 
 }
