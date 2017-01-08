@@ -39,10 +39,10 @@ public class WatertimingControl {
 	}
 
 	@CrossOrigin
-	@RequestMapping(value = "/rest/watertiming/add", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
+	@RequestMapping(value = "/rest/watertiming/add", method = RequestMethod.POST)
 	@ResponseBody
 	public Watertiming add(@RequestBody Watertiming d) {
-		System.out.println("New " + d);
+		System.out.println("New Watertiming" + d);
 		Device device = deviceservice.findById(d.getDevice_id());
 		d.setAdddate(new Date());
 		d.setDevice(device);
