@@ -25,7 +25,8 @@ public class AddTmp {
 	@ResponseBody
 	public String add(@RequestParam(value = "t", required = false, defaultValue = "0") String t,
 			@RequestParam(value = "h", required = true, defaultValue = "0") String h,
-			@RequestParam(value = "m", required = true, defaultValue = "0") String m) {
+			@RequestParam(value = "m", required = true, defaultValue = "0") String m,
+			@RequestParam(value = "ip", required = true, defaultValue = "0") String ip) {
 
 		Device device = ddao.findByMac(m);
 		if (device == null) {
@@ -37,6 +38,7 @@ public class AddTmp {
 		tmp.setH(new BigDecimal(h).add(device.getHtune()));
 		tmp.setT(new BigDecimal(t).add(device.getTtune()));
 		tmp.setDevice(device);
+		tmp.setIp(ip);
 		tmp.setAdddate(new Date());
 		tmp = dao.save(tmp);
 		return "ok";
