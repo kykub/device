@@ -16,6 +16,14 @@ public class PiDevice {
 		// StandardCharsets.UTF_8).forEach(System.out::println);
 
 	}
+	
+	public String wifiIpAddress() throws IOException {
+		String contents = new String(Files.readAllBytes(Paths.get("/sensor/wlan")));
+		return contents;
+		// Files.lines(Paths.get("manifest.mf"),
+		// StandardCharsets.UTF_8).forEach(System.out::println);
+
+	}
 
 	public String eth0Address() throws IOException {
 		/// sys/class/net/eth0/address
@@ -29,6 +37,20 @@ public class PiDevice {
 		String mc = null;
 		try {
 			mc = this.wifiAddress().replaceAll(":", "");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		if (mc == null)
+			return null;
+		mc = mc.replaceAll(" ", "");
+		mc = mc.replaceAll("(\\r|\\n)", "");
+		return mc;
+	}
+	public String wifiip() {
+
+		String mc = null;
+		try {
+			mc = this.wifiIpAddress().replaceAll(":", "");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

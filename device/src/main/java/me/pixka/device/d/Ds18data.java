@@ -20,6 +20,8 @@ public class Ds18data extends Data {
 	@ManyToOne
 	private Device device;
 
+	private String ip;
+
 	public BigDecimal getTmp() {
 		return tmp;
 	}
@@ -46,5 +48,13 @@ public class Ds18data extends Data {
 
 	public String toString() {
 		return this.device.getName() + " tmp:" + this.tmp + " adddate:" + this.adddate;
+	}
+
+	public void setIp(String ip) {
+		this.ip = ip;
+	}
+
+	public String getIp() {
+		return ip;
 	}
 }

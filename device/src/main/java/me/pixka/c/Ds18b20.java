@@ -22,13 +22,13 @@ public class Ds18b20 {
 	private BigDecimal t;
 
 	public BigDecimal read() throws Exception {
-		System.out.println("DS18b20 read");
+	//	System.out.println("DS18b20 read");
 		File dir = new File(w1DirPath);
 		File[] files = dir.listFiles(new DirectoryFileFilter());
 		if (files != null) {
 			// while (true) {
 			for (File file : files) {
-				System.out.print(file.getName() + ": ");
+		//		System.out.print(file.getName() + ": ");
 				// Device data in w1_slave file
 				String filePath = w1DirPath + File.separatorChar + file.getName() + File.separatorChar + "w1_slave";
 				File f = new File(filePath);
@@ -43,9 +43,9 @@ public class Ds18b20 {
 							// Divide by 1000 to get degrees Celsius
 							BigDecimal t = new BigDecimal(tempC /= 1000);
 
-							System.out.print(String.format("%.1f ", tempC));
+			//				System.out.print(String.format("%.1f ", tempC));
 							float tempF = tempC * 9 / 5 + 32;
-							System.out.println(String.format("%.1f", tempF));
+				//			System.out.println(String.format("%.1f", tempF));
 							return t.setScale(1, RoundingMode.HALF_UP);
 						}
 					}

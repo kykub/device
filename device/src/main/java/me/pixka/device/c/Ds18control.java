@@ -38,7 +38,7 @@ public class Ds18control {
 	@RequestMapping(value = "/addds", method = RequestMethod.GET)
 	@ResponseBody
 	public String add(@RequestParam(value = "t", required = false, defaultValue = "0") String t,
-			@RequestParam(value = "m", required = true, defaultValue = "0") String m) {
+			@RequestParam(value = "m", required = true, defaultValue = "0") String m ,@RequestParam(value = "ip", required = true, defaultValue = "0") String ip) {
 
 		Device device = ddao.findByMac(m);
 		if (device == null) {
@@ -50,6 +50,7 @@ public class Ds18control {
 
 		tmp.setTmp(new BigDecimal(t).add(device.getTtune()));
 		tmp.setDevice(device);
+		tmp.setIp(ip);
 		tmp.setAdddate(new Date());
 		tmp = service.save(tmp);
 

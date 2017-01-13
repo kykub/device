@@ -31,7 +31,7 @@ public class DeviceconfigUtil {
 			String get = url + mac;
 			System.out.println("URL:" + get);
 			re = http.get(get);
-			System.out.println("Return value:" + re);
+			//System.out.println("Return value:" + re);
 			Deviceconfig dfs = g.fromJson(re, Deviceconfig.class);
 			dfs.setRefid(dfs.getId());
 			return dfs;
@@ -100,15 +100,15 @@ public class DeviceconfigUtil {
 	}
 
 	public Watertiming loadWatertiming(String url, Long id) {
-		System.out.println("========== Load water config =============");
+		System.out.println("========== Load water config from Local =============");
 		String re = null;
 		try {
 			String get = url + id;
-			System.out.println("Read Watertiming URL:" + get);
+			//System.out.println("Read Watertiming URL:" + get);
 			re = http.get(get);
-			System.out.println("Return water value:" + re);
+			//System.out.println("Return water value:" + re);
 			Watertiming dfs = g.fromJson(re, Watertiming.class);
-
+			System.out.println("load local ok");
 			return dfs;
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -103,18 +103,12 @@ public class Deviceconfig extends Data{
 	public Boolean getLcdon() {
 		return lcdon;
 	}
-
 	public void setLcdon(Boolean lcdon) {
 		this.lcdon = lcdon;
 	}
-
-	
-
-	
 	public Long getDevice_id() {
 		return device_id;
 	}
-
 	public void setDevice_id(Long device_id) {
 		this.device_id = device_id;
 	}

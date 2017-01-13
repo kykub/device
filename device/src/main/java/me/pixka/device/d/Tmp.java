@@ -15,6 +15,7 @@ public class Tmp extends Data {
 	private BigDecimal t, h;
 	private String name;
 	private String mac;
+	private String ip;
 
 	@ManyToOne
 	private Device device;
@@ -71,5 +72,13 @@ public class Tmp extends Data {
 
 	public String toString() {
 		return device.getMac() + " t:" + t + " h:" + h + " adddate:" + adddate;
+	}
+
+	public String getIp() {
+		return ip;
+	}
+
+	public void setIp(String ip) {
+		this.ip = ip;
 	}
 }
