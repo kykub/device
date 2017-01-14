@@ -1,5 +1,6 @@
 package me.pixka.device.c;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,7 @@ public class DeviceconfigUtil {
 	public Deviceconfig loadfromhttp(String url, String mac) {
 		String re = null;
 		try {
+			//String get = url + mac;
 			String get = url + mac;
 			System.out.println("URL:" + get);
 			re = http.get(get);
@@ -53,6 +55,30 @@ public class DeviceconfigUtil {
 		String re = null;
 		try {
 			String get = url + id;
+			System.out.println("Read ds18b20 URL:" + get);
+			re = http.get(get);
+			System.out.println("Return value:" + re);
+			Ds18data dfs = g.fromJson(re, Ds18data.class);
+
+			return dfs;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+	/**
+	 * ใช้สำหรับอ่านค่าของ DS18B20 จากตัวอื่น ตามที่กำหนดด้วย 
+	 * 
+	 * @param url ที่หมาย
+	 * @param id device id
+	 * @param currentmp  อุณหภูมิ
+	 * @return
+	 */
+	public Ds18data read18Ds(String url, Long id,BigDecimal currenttmp) {
+		String re = null;
+		try {
+			String get = url + id+"/"+currenttmp.toString();
 			System.out.println("Read ds18b20 URL:" + get);
 			re = http.get(get);
 			System.out.println("Return value:" + re);
@@ -100,7 +126,7 @@ public class DeviceconfigUtil {
 	}
 
 	public Watertiming loadWatertiming(String url, Long id) {
-		System.out.println("========== Load water config from Local =============");
+		System.out.println("========== Load water config  =============");
 		String re = null;
 		try {
 			String get = url + id;

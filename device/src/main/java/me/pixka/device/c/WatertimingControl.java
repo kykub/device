@@ -37,6 +37,20 @@ public class WatertimingControl {
 		return null;
 
 	}
+	
+	@CrossOrigin
+	@RequestMapping(value = "/water/readtiming/{id}/{tmp}", method = RequestMethod.GET)
+	@ResponseBody
+	public Watertiming get(@PathVariable("id") Long id,@PathVariable("tmp") Long tmp) {
+		Watertiming data = service.findlast(id,tmp);
+		if (data != null) {
+			System.out.println("Found water at:"+tmp+" config :" + data);
+			return data;
+		}
+
+		return null;
+
+	}
 
 	@CrossOrigin
 	@RequestMapping(value = "/rest/watertiming/add", method = RequestMethod.POST)
