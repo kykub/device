@@ -27,7 +27,7 @@ public class WatertimingService {
 
 	public Watertiming findlast(Long id, Long tmp) {
 		
-		return dao.findTop1ByDevice_idAndRunAtAndEnableOrderByIdDesc(id,tmp,true);
+		return dao.findTop1ByDevice_idAndRunatAndEnableOrderByIdDesc(id,tmp,true);
 	}
 
 }

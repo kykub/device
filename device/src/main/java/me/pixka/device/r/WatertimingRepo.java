@@ -12,6 +12,6 @@ public interface WatertimingRepo extends CrudRepository<Watertiming, Long> {
 
 	Watertiming findTop1ByDevice_idAndEnableOrderByIdDesc(Long id, boolean b);
 
-	Watertiming findTop1ByDevice_idAndRunAtAndEnableOrderByIdDesc(Long id, Long tmp, boolean b);
+	Watertiming findTop1ByDevice_idAndRunatAndEnableOrderByIdDesc(Long id, Long tmp, boolean b);
 
 }
