@@ -1,5 +1,7 @@
 package me.pixka.device.r;
 
+import java.math.BigDecimal;
+
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -12,6 +14,7 @@ public interface WatertimingRepo extends CrudRepository<Watertiming, Long> {
 
 	Watertiming findTop1ByDevice_idAndEnableOrderByIdDesc(Long id, boolean b);
 
-	Watertiming findTop1ByDevice_idAndRunatAndEnableOrderByIdDesc(Long id, Long tmp, boolean b);
+	Watertiming findTop1ByDevice_idAndRunatGreaterThanEqualAndRunmaxLessThanEqualAndEnableOrderByIdDesc(Long id,
+			BigDecimal tmp, BigDecimal tmp1, boolean b);
 
 }

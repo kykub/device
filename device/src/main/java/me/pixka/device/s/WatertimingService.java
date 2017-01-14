@@ -1,5 +1,7 @@
 package me.pixka.device.s;
 
+import java.math.BigDecimal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,9 +27,9 @@ public class WatertimingService {
 		dao.delete(d);
 	}
 
-	public Watertiming findlast(Long id, Long tmp) {
+	public Watertiming findlast(Long id, BigDecimal tmp) {
 		
-		return dao.findTop1ByDevice_idAndRunatAndEnableOrderByIdDesc(id,tmp,true);
+		return dao.findTop1ByDevice_idAndRunatGreaterThanEqualAndRunmaxLessThanEqualAndEnableOrderByIdDesc(id,tmp,tmp,true);
 	}
 
 }

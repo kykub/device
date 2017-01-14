@@ -1,5 +1,6 @@
 package me.pixka.device.c;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +42,7 @@ public class WatertimingControl {
 	@CrossOrigin
 	@RequestMapping(value = "/water/readtiming/{id}/{tmp}", method = RequestMethod.GET)
 	@ResponseBody
-	public Watertiming get(@PathVariable("id") Long id,@PathVariable("tmp") Long tmp) {
+	public Watertiming get(@PathVariable("id") Long id,@PathVariable("tmp") BigDecimal tmp) {
 		Watertiming data = service.findlast(id,tmp);
 		if (data != null) {
 			System.out.println("Found water at:"+tmp+" config :" + data);
