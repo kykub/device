@@ -142,4 +142,28 @@ public class DeviceconfigUtil {
 
 		return null;
 	}
+	/**
+	 * หา config ที่อยู่ใน ช่วงนี้ ที่มีค่าตรงกับ tmp
+	 * @param url
+	 * @param id
+	 * @param tmp
+	 * @return
+	 */
+	public Watertiming loadWatertiming(String url, Long id,BigDecimal tmp) {
+		System.out.println("========== Load water config  =============");
+		String re = null;
+		try {
+			String get = url + id+"/"+tmp;
+			//System.out.println("Read Watertiming URL:" + get);
+			re = http.get(get);
+			//System.out.println("Return water value:" + re);
+			Watertiming dfs = g.fromJson(re, Watertiming.class);
+			System.out.println("load local ok");
+			return dfs;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
 }
