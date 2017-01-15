@@ -71,4 +71,20 @@ public class Watertiming extends Data {
 		this.refid = refid;
 	}
 
+	public BigDecimal getTmplow() {
+		return tmplow;
+	}
+
+	public void setTmplow(BigDecimal tmplow) {
+		this.tmplow = tmplow;
+	}
+
+	public BigDecimal getTmphigh() {
+		return tmphigh;
+	}
+
+	public void setTmphigh(BigDecimal tmphigh) {
+		this.tmphigh = tmphigh;
+	}
+
 }
