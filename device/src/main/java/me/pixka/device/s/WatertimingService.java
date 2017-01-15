@@ -11,6 +11,7 @@ import me.pixka.data.s.DefaultService;
 import me.pixka.device.d.Watertiming;
 import me.pixka.device.r.WatertimingRepo;
 
+
 @Service
 @Transactional
 public class WatertimingService extends DefaultService {
