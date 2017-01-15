@@ -3,15 +3,17 @@ package me.pixka.device.s;
 import java.math.BigDecimal;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import me.pixka.data.s.DefaultService;
 import me.pixka.device.d.Watertiming;
 import me.pixka.device.r.WatertimingRepo;
 
 @Service
 @Transactional
-public class WatertimingService {
+public class WatertimingService extends DefaultService {
 	@Autowired
 	private WatertimingRepo dao;
 
@@ -29,8 +31,15 @@ public class WatertimingService {
 
 	public Watertiming findlast(Long id, BigDecimal tmp) {
 
-		return dao.findTop1ByDevice_idAndRunatGreaterThanEqualAndRunmaxLessThanEqualAndEnableOrderByIdDesc(id, tmp, tmp,
-				true);
+		/*
+		 * return dao.
+		 * findTop1ByDevice_idAndRunatGreaterThanEqualAndRunmaxLessThanEqualAndEnableOrderByIdDesc
+		 * (id, tmp, tmp, true);
+		 */
+
+		Pageable p = this.getPage(0L, 1L);
+		return dao.findBytmp(id, tmp, p);
+
 	}
 
 	public Watertiming findByRefid(Long id) {
