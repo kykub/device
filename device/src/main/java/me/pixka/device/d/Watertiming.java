@@ -15,13 +15,12 @@ public class Watertiming extends Data {
 	private Long device_id;
 	@ManyToOne
 	private Device device;
-	
 	private Boolean enable = true;
-	
 	private Long waittime; // เวลาที่รอ default 5 นาที
 	private Long openwatertime; // ช่วงเวลาเปิดน้ำ
 	private BigDecimal runat;//ช่วงอณหภูที่ run
 	private BigDecimal runmax;
+	private Long refid; // id ของ server 
 	public Long getDevice_id() {
 		return device_id;
 	}
@@ -76,6 +75,14 @@ public class Watertiming extends Data {
 
 	public void setRunmax(BigDecimal runmax) {
 		this.runmax = runmax;
+	}
+
+	public Long getRefid() {
+		return refid;
+	}
+
+	public void setRefid(Long refid) {
+		this.refid = refid;
 	}
 
 }

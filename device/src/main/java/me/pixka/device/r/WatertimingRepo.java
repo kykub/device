@@ -17,4 +17,5 @@ public interface WatertimingRepo extends CrudRepository<Watertiming, Long> {
 	Watertiming findTop1ByDevice_idAndRunatGreaterThanEqualAndRunmaxLessThanEqualAndEnableOrderByIdDesc(Long id,
 			BigDecimal tmp, BigDecimal tmp1, boolean b);
 
+	Watertiming findByRefid(Long id);
 }
