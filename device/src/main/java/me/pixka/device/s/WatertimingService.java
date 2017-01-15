@@ -1,6 +1,7 @@
 package me.pixka.device.s;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -39,7 +40,10 @@ public class WatertimingService extends DefaultService {
 		 */
 
 		Pageable p = this.getPage(0L, 1L);
-		return dao.findBytmp(id, tmp, p);
+		List list = dao.findBytmp(id, tmp, p);
+		if(list.isEmpty())
+			return null;
+		return (Watertiming) list.get(0);
 
 	}
 
