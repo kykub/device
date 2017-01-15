@@ -154,11 +154,12 @@ public class DeviceconfigUtil {
 		String re = null;
 		try {
 			String get = url + id+"/"+tmp;
+			System.out.println("GETURL:"+get);
 			//System.out.println("Read Watertiming URL:" + get);
 			re = http.get(get);
 			//System.out.println("Return water value:" + re);
 			Watertiming dfs = g.fromJson(re, Watertiming.class);
-			System.out.println("load local ok");
+			System.out.println("load http ok");
 			return dfs;
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -39,7 +41,7 @@ public class WatertimingService extends DefaultService {
 		 * (id, tmp, tmp, true);
 		 */
 
-		Pageable p = this.getPage(0L, 1L);
+		Pageable p = this.getPage(0L, 1L,Direction.DESC,"id");
 		List list = dao.findBytmp(id, tmp, p);
 		
 		System.out.println("---------------------> Water item id:"+id+" tmp:"+tmp+" size:"+list.size());
