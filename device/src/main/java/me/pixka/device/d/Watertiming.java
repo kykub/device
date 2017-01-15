@@ -18,8 +18,8 @@ public class Watertiming extends Data {
 	private Boolean enable = true;
 	private Long waittime; // เวลาที่รอ default 5 นาที
 	private Long openwatertime; // ช่วงเวลาเปิดน้ำ
-	private BigDecimal runat;//ช่วงอณหภูที่ run
-	private BigDecimal runmax;
+	private BigDecimal tmplow;//ช่วงอณหภูที่ run
+	private BigDecimal tmphigh;
 	private Long refid; // id ของ server 
 	public Long getDevice_id() {
 		return device_id;
@@ -61,21 +61,7 @@ public class Watertiming extends Data {
 		this.enable = enable;
 	}
 
-	public BigDecimal getRunat() {
-		return runat;
-	}
-
-	public void setRunat(BigDecimal runat) {
-		this.runat = runat;
-	}
-
-	public BigDecimal getRunmax() {
-		return runmax;
-	}
-
-	public void setRunmax(BigDecimal runmax) {
-		this.runmax = runmax;
-	}
+	
 
 	public Long getRefid() {
 		return refid;

@@ -14,7 +14,6 @@ import me.pixka.data.s.DefaultService;
 import me.pixka.device.d.Watertiming;
 import me.pixka.device.r.WatertimingRepo;
 
-
 @Service
 @Transactional
 public class WatertimingService extends DefaultService {
@@ -41,14 +40,20 @@ public class WatertimingService extends DefaultService {
 		 * (id, tmp, tmp, true);
 		 */
 
-		Pageable p = this.getPage(0L, 10L,Direction.DESC,"id");
-		List list = dao.findBytmp(id, tmp, p);
-		
-		System.out.println("---------------------> Water item id:"+id+" tmp:"+tmp+" size:"+list.size());
-		if(list.isEmpty())
-			return null;
-		return (Watertiming) list.get(0);
-
+		// Pageable p = this.getPage(0L, 10L,Direction.DESC,"id");
+		// List list = dao.findBytmp(id, tmp);
+		//
+		// List lx = dao.x();
+		Watertiming obj = dao.findTop1ByDevice_idAndTmplowLessThanEqualAndTmphighGreaterThanEqual(id, tmp, tmp);
+		// System.out.println("Object "+obj);
+		// List ly = dao.x(new BigDecimal("92.4"));
+		//
+		// System.out.println("---------------------> Water item id:"+id+"
+		// tmp:"+tmp+" size:"+list.size());
+		// if(list.isEmpty())
+		// return null;
+		// return (Watertiming) list.get(0);
+		return obj;
 	}
 
 	public Watertiming findByRefid(Long id) {

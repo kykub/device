@@ -44,7 +44,7 @@ public class WatertimingControl {
 	@ResponseBody
 	public Watertiming get(@PathVariable("id") Long id,@PathVariable("tmp") BigDecimal tmp) {
 		
-		System.out.println("GET By TMP");
+		System.out.println("GET By TMP id:+"+id+" tmp:"+tmp);
 		Watertiming data = service.findlast(id,tmp);
 		if (data != null) {
 			System.out.println("Found water at:"+tmp+" config :" + data);
