@@ -16,7 +16,7 @@ public class WatertimingService {
 	private WatertimingRepo dao;
 
 	public Watertiming findlast(Long id) {
-		return dao.findTop1ByDevice_idAndEnableOrderByIdDesc(id,true);
+		return dao.findTop1ByDevice_idAndEnableOrderByIdDesc(id, true);
 	}
 
 	public Watertiming add(Watertiming d) {
@@ -28,8 +28,17 @@ public class WatertimingService {
 	}
 
 	public Watertiming findlast(Long id, BigDecimal tmp) {
-		
-		return dao.findTop1ByDevice_idAndRunatGreaterThanEqualAndRunmaxLessThanEqualAndEnableOrderByIdDesc(id,tmp,tmp,true);
+
+		return dao.findTop1ByDevice_idAndRunatGreaterThanEqualAndRunmaxLessThanEqualAndEnableOrderByIdDesc(id, tmp, tmp,
+				true);
+	}
+
+	public Watertiming findByRefid(Long id) {
+		return dao.findByRefid(id);
+	}
+
+	public Watertiming save(Watertiming wwwww) {
+		return dao.save(wwwww);
 	}
 
 }
