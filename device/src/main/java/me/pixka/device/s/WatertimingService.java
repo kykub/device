@@ -41,7 +41,7 @@ public class WatertimingService extends DefaultService {
 		 * (id, tmp, tmp, true);
 		 */
 
-		Pageable p = this.getPage(0L, 1L,Direction.DESC,"id");
+		Pageable p = this.getPage(0L, 10L,Direction.DESC,"id");
 		List list = dao.findBytmp(id, tmp, p);
 		
 		System.out.println("---------------------> Water item id:"+id+" tmp:"+tmp+" size:"+list.size());
