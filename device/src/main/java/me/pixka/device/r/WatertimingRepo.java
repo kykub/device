@@ -22,6 +22,6 @@ public interface WatertimingRepo extends CrudRepository<Watertiming, Long> {
 
 	Watertiming findByRefid(Long id);
 
-	@Query("from Watertiming w where w.device_id = ?1 and (w.runat >= ?2 and w.runmax <= ?2)")
+	@Query("from Watertiming w where w.device_id = ?1 and enable=true and (w.runat >= ?2 and w.runmax <= ?2) order by w.id desc")
 	List findBytmp(Long id, BigDecimal v, Pageable p);
 }
