@@ -87,4 +87,10 @@ public class Watertiming extends Data {
 		this.tmphigh = tmphigh;
 	}
 
+	@Override
+	public String toString() {
+		return "Watertiming [device=" + device + ", enable=" + enable + ", waittime=" + waittime + ", openwatertime="
+				+ openwatertime + ", tmplow=" + tmplow + ", tmphigh=" + tmphigh + "]";
+	}
+
 }

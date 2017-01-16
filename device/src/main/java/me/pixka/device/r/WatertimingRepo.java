@@ -27,9 +27,13 @@ public interface WatertimingRepo extends JpaRepository<Watertiming, Long>
 
 	// Watertiming findTop1ByDevice_idAndRunatGreaterThanEqual(Long
 	// did,BigDecimal v);
-	
-	Watertiming findTop1ByDevice_idAndTmplowLessThanEqualAndTmphighGreaterThanEqual(Long id,BigDecimal t1,BigDecimal t2);
-	
+
+	Watertiming findTop1ByDevice_idAndTmplowLessThanEqualAndTmphighGreaterThanEqual(Long id, BigDecimal t1,
+			BigDecimal t2);
+
+	Watertiming findTop1ByDevice_idAndTmplowLessThanEqualAndTmphighGreaterThanEqualOrderByIdDesc(Long id, BigDecimal t1,
+			BigDecimal t2);
+
 	Watertiming findByRefid(Long id);
 
 	@Query("from Watertiming w where w.device_id = ?1 and w.tmplow <= ?2 and  w.tmphigh >= ?2")

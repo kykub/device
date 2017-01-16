@@ -44,7 +44,8 @@ public class WatertimingService extends DefaultService {
 		// List list = dao.findBytmp(id, tmp);
 		//
 		// List lx = dao.x();
-		Watertiming obj = dao.findTop1ByDevice_idAndTmplowLessThanEqualAndTmphighGreaterThanEqual(id, tmp, tmp);
+		Watertiming obj = dao.findTop1ByDevice_idAndTmplowLessThanEqualAndTmphighGreaterThanEqualOrderByIdDesc(id, tmp,
+				tmp);
 		// System.out.println("Object "+obj);
 		// List ly = dao.x(new BigDecimal("92.4"));
 		//
