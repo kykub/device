@@ -15,6 +15,7 @@ import me.pixka.device.d.Device;
 import me.pixka.device.d.Deviceconfig;
 import me.pixka.device.d.Ds18data;
 import me.pixka.device.d.Watertiming;
+import me.pixka.o.Ds;
 
 @Component
 public class DeviceconfigUtil {
@@ -29,11 +30,11 @@ public class DeviceconfigUtil {
 	public Deviceconfig loadfromhttp(String url, String mac) {
 		String re = null;
 		try {
-			//String get = url + mac;
+			// String get = url + mac;
 			String get = url + mac;
 			System.out.println("URL:" + get);
 			re = http.get(get);
-			//System.out.println("Return value:" + re);
+			// System.out.println("Return value:" + re);
 			Deviceconfig dfs = g.fromJson(re, Deviceconfig.class);
 			dfs.setRefid(dfs.getId());
 			return dfs;
@@ -51,15 +52,15 @@ public class DeviceconfigUtil {
 	 * @param id
 	 * @return
 	 */
-	public Ds18data read18Ds(String url, Long id) {
+	public Ds read18Ds(String url, Long id) {
 		String re = null;
 		try {
 			String get = url + id;
 			System.out.println("Read ds18b20 URL:" + get);
 			re = http.get(get);
 			System.out.println("Return value:" + re);
-			Ds18data dfs = g.fromJson(re, Ds18data.class);
-
+			Ds dfs = g.fromJson(re, Ds.class);
+			System.out.println("DS18B20 DATA: =====================>" + dfs);
 			return dfs;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -67,23 +68,27 @@ public class DeviceconfigUtil {
 
 		return null;
 	}
+
 	/**
-	 * ใช้สำหรับอ่านค่าของ DS18B20 จากตัวอื่น ตามที่กำหนดด้วย 
+	 * ใช้สำหรับอ่านค่าของ DS18B20 จากตัวอื่น ตามที่กำหนดด้วย
 	 * 
-	 * @param url ที่หมาย
-	 * @param id device id
-	 * @param currentmp  อุณหภูมิ
+	 * @param url
+	 *            ที่หมาย
+	 * @param id
+	 *            device id
+	 * @param currentmp
+	 *            อุณหภูมิ
 	 * @return
 	 */
-	public Ds18data read18Ds(String url, Long id,BigDecimal currenttmp) {
+	public Ds18data read18Ds(String url, Long id, BigDecimal currenttmp) {
 		String re = null;
 		try {
-			String get = url + id+"/"+currenttmp.toString();
+
+			String get = url + id + "/" + currenttmp.toString();
 			System.out.println("Read ds18b20 URL:" + get);
 			re = http.get(get);
-			System.out.println("Return value:" + re);
+			System.out.println("Return value:========>" + re);
 			Ds18data dfs = g.fromJson(re, Ds18data.class);
-
 			return dfs;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -130,9 +135,9 @@ public class DeviceconfigUtil {
 		String re = null;
 		try {
 			String get = url + id;
-			//System.out.println("Read Watertiming URL:" + get);
+			// System.out.println("Read Watertiming URL:" + get);
 			re = http.get(get);
-			//System.out.println("Return water value:" + re);
+			// System.out.println("Return water value:" + re);
 			Watertiming dfs = g.fromJson(re, Watertiming.class);
 			System.out.println("load local ok");
 			return dfs;
@@ -142,22 +147,24 @@ public class DeviceconfigUtil {
 
 		return null;
 	}
+
 	/**
 	 * หา config ที่อยู่ใน ช่วงนี้ ที่มีค่าตรงกับ tmp
+	 * 
 	 * @param url
 	 * @param id
 	 * @param tmp
 	 * @return
 	 */
-	public Watertiming loadWatertiming(String url, Long id,BigDecimal tmp) {
+	public Watertiming loadWatertiming(String url, Long id, BigDecimal tmp) {
 		System.out.println("========== Load water config  =============");
 		String re = null;
 		try {
-			String get = url + id+"/"+tmp;
-			System.out.println("GETURL:"+get);
-			//System.out.println("Read Watertiming URL:" + get);
+			String get = url + id + "/" + tmp;
+			System.out.println("GETURL:" + get);
+			// System.out.println("Read Watertiming URL:" + get);
 			re = http.get(get);
-			//System.out.println("Return water value:" + re);
+			// System.out.println("Return water value:" + re);
 			Watertiming dfs = g.fromJson(re, Watertiming.class);
 			System.out.println("load http ok");
 			return dfs;

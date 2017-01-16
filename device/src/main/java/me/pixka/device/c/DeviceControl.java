@@ -163,4 +163,8 @@ public class DeviceControl {
 		return deviceservice.list();
 	}
 
+	public Object findById(Long id) {
+		return deviceservice.findById(id);
+	}
+
 }

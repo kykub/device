@@ -22,6 +22,7 @@ import me.pixka.device.d.Ds18data;
 import me.pixka.device.d.Gettmp;
 import me.pixka.device.r.DeviceRepo;
 import me.pixka.device.s.Ds18Service;
+import me.pixka.o.Ds;
 
 @RestController
 public class Ds18control {
@@ -38,7 +39,8 @@ public class Ds18control {
 	@RequestMapping(value = "/addds", method = RequestMethod.GET)
 	@ResponseBody
 	public String add(@RequestParam(value = "t", required = false, defaultValue = "0") String t,
-			@RequestParam(value = "m", required = true, defaultValue = "0") String m ,@RequestParam(value = "ip", required = true, defaultValue = "0") String ip) {
+			@RequestParam(value = "m", required = true, defaultValue = "0") String m,
+			@RequestParam(value = "ip", required = true, defaultValue = "0") String ip) {
 
 		Device device = ddao.findByMac(m);
 		if (device == null) {
@@ -138,31 +140,27 @@ public class Ds18control {
 
 	}
 
-	
-	class Ds {
-		private BigDecimal tmp;
-		private String adddate;
+	@CrossOrigin
+	@RequestMapping(value = "/readds18b20other/{id}", method = RequestMethod.GET)
+	@ResponseBody
+	public Ds getother(@PathVariable("id") Long id) throws Exception {
+		Ds18data data = service.findlast(id);
+		if (data != null) {
+			Ds d = new Ds();
+			d.setAdddate(tdf.format(data.getAdddate()));
+			d.setTmp(data.getTmp());
 
-		public BigDecimal getTmp() {
-			return tmp;
+			System.out.println("Found last item :" + d);
+			return d;
 		}
 
-		public void setTmp(BigDecimal tmp) {
-			this.tmp = tmp;
-		}
+		Ds d = new Ds();
+		d.setAdddate(ef.format(new Date()));
+		d.setTmp(new BigDecimal("00.0"));
 
-		public String getAdddate() {
-			return adddate;
-		}
-
-		public void setAdddate(String adddate) {
-			this.adddate = adddate;
-		}
-
-		@Override
-		public String toString() {
-			return "Ds [tmp=" + tmp + ", adddate=" + adddate + "]";
-		}
+		System.out.println("New  last item :" + d);
+		return d;
 
 	}
+
 }
