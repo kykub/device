@@ -36,18 +36,19 @@ public interface WatertimingRepo extends JpaRepository<Watertiming, Long>
 
 	Watertiming findByRefid(Long id);
 
-	@Query("from Watertiming w where w.device_id = ?1 and w.tmplow <= ?2 and  w.tmphigh >= ?2")
-	List findBytmp(Long id, BigDecimal v);
-
-	@Query("from Watertiming w where w.device_id = 1 and  w.tmplow <= 90 and w.tmphigh >= 96.5")
-	List x();
-
-	@Query("select w from Watertiming w where  w.tmplow <= ?1")
-	List x(BigDecimal t1);
+//	@Query("from Watertiming w where w.device_id = ?1 and w.tmplow <= ?2 and  w.tmphigh >= ?2")
+//	List findBytmp(Long id, BigDecimal v);
+//
+//	@Query("from Watertiming w where w.device_id = 1 and  w.tmplow <= 90 and w.tmphigh >= 96.5")
+//	List x();
+//
+//	@Query("select w from Watertiming w where  w.tmplow <= ?1")
+//	List x(BigDecimal t1);
 	// Watertiming findTop1ByDevice_idAndByRunatGreaterThanEqual(Long id,
 	// BigDecimal tmp);
 
 	// List findTop1ByDevice_idAndRunatGreaterThan(Long id, BigDecimal tmp);
 
 	List findTop1ByDevice_id(Long id);
+
 }

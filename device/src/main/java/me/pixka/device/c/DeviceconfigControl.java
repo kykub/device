@@ -41,17 +41,14 @@ public class DeviceconfigControl {
 			 */
 			return deviceconfig;
 		}
-
 		// หาข้อมูลที่ยังไม่ได้อ่าน
 		deviceconfig = devicecfservice.findLast(id);
-
 		if (deviceconfig != null) {
 			deviceconfig.setRead(true);
 			devicecfservice.save(deviceconfig); // ต้องบอกว่า อ่านแล้ว
 												// หรือใช้แล้วจะกลับมาใช้อีกไม่ได้
 			return deviceconfig;
 		}
-
 		// หาอันที่อ่านหลังสุด
 		deviceconfig = devicecfservice.findLastRead(id);
 
