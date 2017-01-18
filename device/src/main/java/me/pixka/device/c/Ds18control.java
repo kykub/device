@@ -103,7 +103,7 @@ public class Ds18control {
 			Ds d = new Ds();
 			d.setAdddate(tdf.format(data.getAdddate()));
 			d.setTmp(data.getTmp());
-
+			d.setIp(data.getIp());
 			System.out.println("Found last item :" + d);
 			return d;
 		}
@@ -111,7 +111,7 @@ public class Ds18control {
 		Ds d = new Ds();
 		d.setAdddate(ef.format(new Date()));
 		d.setTmp(new BigDecimal("0.00"));
-
+		d.setIp("-----");
 		System.out.println("New  last item :" + d);
 		return d;
 

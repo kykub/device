@@ -122,8 +122,11 @@ public class DeviceconfigUtil {
 				e.printStackTrace();
 			}
 		}
+		else{
+			System.out.println("Have Device config already no need to save");	
+		}
 
-		System.out.println("End of save");
+		
 	}
 
 	public Deviceconfig loadfromdevice() {

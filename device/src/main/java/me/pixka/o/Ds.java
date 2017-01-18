@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 
 public class Ds {
 	private BigDecimal tmp;
+	private String ip;
 	private String adddate;
 
 	public BigDecimal getTmp() {
@@ -24,7 +25,15 @@ public class Ds {
 
 	@Override
 	public String toString() {
-		return "Ds [tmp=" + tmp + ", adddate=" + adddate + "]";
+		return "Ds [tmp=" + tmp + ", ip=" + ip + ", adddate=" + adddate + "]";
+	}
+
+	public String getIp() {
+		return ip;
+	}
+
+	public void setIp(String ip) {
+		this.ip = ip;
 	}
 
 }
