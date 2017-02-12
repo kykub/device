@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import me.pixka.data.obj.P;
 import me.pixka.device.d.Forgraph;
 import me.pixka.device.d.Gettmp;
 import me.pixka.device.d.Searchtmp;
@@ -85,28 +86,6 @@ public class TmpControl {
 		List list = tmp.search(js.getSearch(), js.getPage(), js.getPp());
 		p.setItems(list);
 		return p;
-	}
-
-	class P {
-		private Integer count;
-		private List items = new ArrayList();
-
-		public Integer getCount() {
-			return count;
-		}
-
-		public void setCount(Integer count) {
-			this.count = count;
-		}
-
-		public List getItems() {
-			return items;
-		}
-
-		public void setItems(List items) {
-			this.items = items;
-		}
-
 	}
 
 }

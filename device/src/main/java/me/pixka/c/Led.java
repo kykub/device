@@ -2,7 +2,6 @@ package me.pixka.c;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
 
 import com.pi4j.io.spi.SpiChannel;
 import com.pi4j.io.spi.SpiDevice;
@@ -331,6 +330,7 @@ public class Led {
 		try {
 			this.clear();
 			this.command(Constants.MAX7219_REG_SHUTDOWN, (byte) 0x0);
+			this.run = false;
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -343,8 +343,10 @@ public class Led {
 		try {
 			this.command(Constants.MAX7219_REG_SHUTDOWN, (byte) 0x1);
 			this.clear();
+			this.run = true;
 		} catch (Exception ex) {
 			ex.printStackTrace();
+			this.run = false;
 		}
 	}
 
@@ -450,5 +452,13 @@ public class Led {
 
 		this.flush();
 		// run = false;
+	}
+
+	public boolean isRun() {
+		return run;
+	}
+
+	public void setRun(boolean run) {
+		this.run = run;
 	}
 }

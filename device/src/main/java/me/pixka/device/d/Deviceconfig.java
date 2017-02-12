@@ -13,29 +13,76 @@ import javax.persistence.OneToMany;
 import me.pixka.data.Data;
 
 @Entity
-public class Deviceconfig extends Data{
+public class Deviceconfig extends Data {
 
-
+	private Boolean finished = false; // บอกว่า Run เสร็จแล้วหรือยัง
 	private Long refid;
 	private Boolean read = false;
 	@ManyToOne
 	private Device device;
 	private BigDecimal h, t; // ความชื่นขันตำ�?ละอุณหภูมิ
+
 	private BigDecimal hh, ht;// ความร้อนสูงสุด
 	private Date sdate, edate, stime, etime; // ช่วงเวลา
 	private Boolean enable = true;
 	private Boolean blacklight = true;
 	private Boolean lcdon = true;
-	private Long runtime = 10000l; // runtime สำหรับ เวลาใน�?าร run
+	private Integer repeat = 1;// ใช้สำหรับ ว่า run config นี้กี่ครั้ง
+	private BigDecimal lowh, lowt, highh, hight;
+
+	// onetime = flase เป็นแบบ register ฝั่งลงใน Device เลย
+	// onetime = true จะลบออกหลังจาก run เสร็จแล้ว
+	private Boolean onetime = false;
+
+	public Boolean getOnetime() {
+		return onetime;
+	}
+
+	public void setOnetime(Boolean onetime) {
+		this.onetime = onetime;
+	}
+
+	public BigDecimal getLowh() {
+		return lowh;
+	}
+
+	public void setLowh(BigDecimal lowh) {
+		this.lowh = lowh;
+	}
+
+	public BigDecimal getLowt() {
+		return lowt;
+	}
+
+	public void setLowt(BigDecimal lowt) {
+		this.lowt = lowt;
+	}
+
+	public BigDecimal getHighh() {
+		return highh;
+	}
+
+	public void setHighh(BigDecimal highh) {
+		this.highh = highh;
+	}
+
+	public BigDecimal getHight() {
+		return hight;
+	}
+
+	public void setHight(BigDecimal hight) {
+		this.hight = hight;
+	}
+
+	private Long runtime = 10000l; // runtime สำหรับ เวลาในการ run
 	@Column(insertable = false, updatable = false)
 	private Long device_id;
-	
-	@OneToMany(mappedBy = "deviceconfig", cascade = CascadeType.ALL)
-	private List<PortConfig> ports;
+
+//	@OneToMany(mappedBy = "deviceconfig", cascade = CascadeType.ALL)
+//	private List<PortConfig> ports;
 
 	private Boolean port1open = false;
 	private Boolean port2open = false;
-
 	private Boolean port3open = false;
 	private Boolean port4open = false;
 	private Boolean port5open = false;
@@ -43,8 +90,17 @@ public class Deviceconfig extends Data{
 	private Boolean port7open = false;
 	private Boolean port8open = false;
 
-	private Long readdsfrom_id; // ใช้สำหรับบอกว่าอ่าน ค่า DS18B20 จาก Device_id ไหน   rest = /readds18b20/{id} 
-	private Long readdhtfrom_id; //ใช้สำหรับบอก Pi ว่าจะต้องอ่าน ค่า ของ DHT จากที่ไหน หรือ ID อะไร rest = /readdht/{id}
+	@ManyToOne
+	private Devicetype devicetype;
+
+	@Column(insertable = false, updatable = false)
+	private Long devicetype_id;
+
+	private Long readdsfrom_id; // ใช้สำหรับบอกว่าอ่าน ค่า DS18B20 จาก Device_id
+								// ไหน rest = /readds18b20/{id}
+	private Long readdhtfrom_id; // ใช้สำหรับบอก Pi ว่าจะต้องอ่าน ค่า ของ DHT
+									// จากที่ไหน หรือ ID อะไร rest =
+									// /readdht/{id}
 
 	public Long getReaddsfrom_id() {
 		return readdsfrom_id;
@@ -62,18 +118,20 @@ public class Deviceconfig extends Data{
 		this.readdhtfrom_id = readdhtfrom_id;
 	}
 
-	@ManyToOne
-	private Devicetype devicetype;
+	// public List<PortConfig> getPorts() {
+	// return ports;
+	// }
+	//
+	// public void setPorts(List<PortConfig> ports) {
+	// this.ports = ports;
+	// }
 
-	@Column(insertable = false, updatable = false)
-	private Long devicetype_id;
-
-	public List<PortConfig> getPorts() {
-		return ports;
+	public Boolean getFinished() {
+		return finished;
 	}
 
-	public void setPorts(List<PortConfig> ports) {
-		this.ports = ports;
+	public void setFinished(Boolean finished) {
+		this.finished = finished;
 	}
 
 	public Boolean getPort1open() {
@@ -103,12 +161,15 @@ public class Deviceconfig extends Data{
 	public Boolean getLcdon() {
 		return lcdon;
 	}
+
 	public void setLcdon(Boolean lcdon) {
 		this.lcdon = lcdon;
 	}
+
 	public Long getDevice_id() {
 		return device_id;
 	}
+
 	public void setDevice_id(Long device_id) {
 		this.device_id = device_id;
 	}
@@ -179,10 +240,10 @@ public class Deviceconfig extends Data{
 
 	@Override
 	public String toString() {
-		return "Deviceconfig [refid="+refid+",id=" + this.getId() + ", device_id=" + device_id + ", ports=" + ports + ", device=" + device
-				+ ", h=" + h + ", t=" + t + ", ht="+ht+" , hh=,"+hh+" sdate=" + sdate + ", edate=" + edate + ", stime=" + stime + ", etime="
-				+ etime + ", enable=" + enable + ", port1open=" + port1open + ", port2open=" + port2open + ", adddate="
-				+ this.getAdddate() + "]";
+		return "Deviceconfig [refid=" + refid + ",id=" + this.getId() + ", device_id=" + device_id + ", ports="
+				+ ", device=" + device + ", h=" + h + ", t=" + t + ", ht=" + ht + " , hh=," + hh + " sdate=" + sdate
+				+ ", edate=" + edate + ", stime=" + stime + ", etime=" + etime + ", enable=" + enable + ", port1open="
+				+ port1open + ", port2open=" + port2open + ", adddate=" + this.getAdddate() + "]";
 	}
 
 	public Long getRuntime() {
@@ -287,6 +348,14 @@ public class Deviceconfig extends Data{
 
 	public void setRefid(Long refid) {
 		this.refid = refid;
+	}
+
+	public Integer getRepeat() {
+		return repeat;
+	}
+
+	public void setRepeat(Integer repeat) {
+		this.repeat = repeat;
 	}
 
 }

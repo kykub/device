@@ -4,9 +4,8 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,26 +33,9 @@ public class WatertimingService extends DefaultService {
 
 	public Watertiming findlast(Long id, BigDecimal tmp) {
 
-		/*
-		 * return dao.
-		 * findTop1ByDevice_idAndRunatGreaterThanEqualAndRunmaxLessThanEqualAndEnableOrderByIdDesc
-		 * (id, tmp, tmp, true);
-		 */
-
-		// Pageable p = this.getPage(0L, 10L,Direction.DESC,"id");
-		// List list = dao.findBytmp(id, tmp);
-		//
-		// List lx = dao.x();
 		Watertiming obj = dao.findTop1ByDevice_idAndTmplowLessThanEqualAndTmphighGreaterThanEqualOrderByIdDesc(id, tmp,
 				tmp);
-		// System.out.println("Object "+obj);
-		// List ly = dao.x(new BigDecimal("92.4"));
-		//
-		// System.out.println("---------------------> Water item id:"+id+"
-		// tmp:"+tmp+" size:"+list.size());
-		// if(list.isEmpty())
-		// return null;
-		// return (Watertiming) list.get(0);
+
 		return obj;
 	}
 
@@ -65,4 +47,54 @@ public class WatertimingService extends DefaultService {
 		return dao.save(wwwww);
 	}
 
+	public List search(String n, int p, int pp) {
+		if (p > 0)
+			p--;
+		PageRequest request = new PageRequest(p, pp, Sort.Direction.ASC, "id");
+		return dao.search(n, request);
+	}
+
+	public Long searchcount(String search) {
+		return dao.searchcount(search);
+	}
+
+	/**
+	 * ใช้สำหรับ local device หา ค่าของตัวเอง
+	 * 
+	 * @param tmp
+	 * @return
+	 */
+	public Watertiming findlast(BigDecimal tmp) {
+		return dao.findTop1ByTmplowLessThanEqualAndTmphighGreaterThanEqualOrderByIdDesc(tmp, tmp);
+	}
+
+	public List findByDeviceId(Long id) {
+		return dao.findByDevice_id(id);
+	}
+
+	/**
+	 * ใช้สำหรับหาค่า สุดท้ายในเครื่อง
+	 * 
+	 * @return
+	 */
+	public Watertiming last() {
+		return dao.findTop1ByOrderByIdDesc();
+	}
+
+	public Long lastrefid() {
+		Watertiming wt = last();
+
+		if (wt != null && wt.getRefid() != null)
+			return wt.getRefid();
+
+		return 0L;
+	}
+
+	public List last(Long id, Long refid) {
+		return dao.findByDevice_idAndIdGreaterThan(id, refid);
+	}
+
+	public void reset(Long id) {
+		dao.deleteAll();
+	}
 }

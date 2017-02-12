@@ -1,5 +1,6 @@
 package me.pixka.device.s;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -78,8 +79,53 @@ public class DeviceconfigService {
 		return dao.findByRefid(id);
 	}
 
+	/**
+	 * หา deviceconfig ล่าสุดของ Device
+	 * 
+	 * @return
+	 */
 	public Deviceconfig last() {
 		return dao.findTop1ByOrderByIdDesc();
+	}
+
+	public Deviceconfig findByH(Long deviceid, BigDecimal h) {
+		return dao.findTop1ByDevice_idAndLowhLessThanEqualAndHighhGreaterThanEqualOrderByIdDesc(deviceid, h, h);
+	}
+
+	public Deviceconfig findByT(Long id, BigDecimal t) {
+		return dao.findTop1ByDevice_idAndLowtLessThanEqualAndHightGreaterThanEqualOrderByIdDesc(id, t, t);
+	}
+
+	public List<Deviceconfig> finds(Long id, boolean b) {
+		return dao.findByDevice_idAndEnable(id, b);
+	}
+
+	public Deviceconfig findonetimeconfig(Long id) {
+		return dao.findTop1ByDevice_idAndOnetime(id, true);
+	}
+
+	public void delete(Deviceconfig dvf) {
+		dao.delete(dvf);
+	}
+
+	public void delete(Long id) {
+		dao.delete(id);
+	}
+
+	/**
+	 * ใช้สำหรับ การหา device config ที่เริ่มจาก refid จะดึงมาเป็นชุด
+	 * 
+	 * @param mac
+	 * @param refid
+	 * @return
+	 */
+	public List findRefid(String mac, Long refid) {
+
+		return null;
+	}
+
+	public List<Deviceconfig> findByLast(Long id, Long lastid) {
+		return dao.findByDevice_idAndIdGreaterThan(id, lastid);
 	}
 
 }

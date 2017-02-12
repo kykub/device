@@ -1,11 +1,10 @@
 package me.pixka.device.d;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.Enumerated;
+
+import com.pi4j.io.gpio.PinMode;
+import com.pi4j.io.gpio.PinState;
 
 import me.pixka.data.Data;
 
@@ -13,31 +12,28 @@ import me.pixka.data.Data;
 public class PortConfig extends Data {
 
 	private String name;
-	private Boolean open = false;
 
-	@ManyToOne
-	private Deviceconfig deviceconfig;
-	@Column(insertable = false, updatable = false)
-	private Long deviceconfig_id;
+	private String pin;
 
-	public Deviceconfig getDeviceconfig() {
-		return deviceconfig;
+	@Enumerated
+	private Projects projects;
+
+	@Enumerated
+	private PinMode pinmode;
+
+	@Enumerated
+	private PinState startstate;
+
+	@Enumerated
+	private PinState shutdownstate;
+
+	public String getPin() {
+		return pin;
 	}
 
-	public void setDeviceconfig(Deviceconfig deviceconfig) {
-		this.deviceconfig = deviceconfig;
+	public void setPin(String pin) {
+		this.pin = pin;
 	}
-
-	public Long getDeviceconfig_id() {
-		return deviceconfig_id;
-	}
-
-	public void setDeviceconfig_id(Long deviceconfig_id) {
-		this.deviceconfig_id = deviceconfig_id;
-	}
-
-	@Column(insertable = false, updatable = false)
-	private Long port_id;
 
 	public String getName() {
 		return name;
@@ -47,30 +43,42 @@ public class PortConfig extends Data {
 		this.name = name;
 	}
 
-	public Long getPort_id() {
-		return port_id;
+	public Projects getProjects() {
+		return projects;
 	}
 
-	public void setPort_id(Long port_id) {
-		this.port_id = port_id;
+	public void setProjects(Projects projects) {
+		this.projects = projects;
 	}
 
-	public Port getPort() {
-		return port;
+	public PinMode getPinmode() {
+		return pinmode;
 	}
 
-	public void setPort(Port port) {
-		this.port = port;
+	public void setPinmode(PinMode pinmode) {
+		this.pinmode = pinmode;
 	}
 
-	public Boolean getOpen() {
-		return open;
+	public PinState getStartstate() {
+		return startstate;
 	}
 
-	public void setOpen(Boolean open) {
-		this.open = open;
+	public void setStartstate(PinState startstate) {
+		this.startstate = startstate;
 	}
 
-	@ManyToOne
-	private Port port;
+	public PinState getShutdownstate() {
+		return shutdownstate;
+	}
+
+	public void setShutdownstate(PinState shutdownstate) {
+		this.shutdownstate = shutdownstate;
+	}
+
+	@Override
+	public String toString() {
+		return "PortConfig [name=" + name + ", pin=" + pin + ", projects=" + projects + ", pinmode=" + pinmode
+				+ ", startstate=" + startstate + ", shutdownstate=" + shutdownstate + "]";
+	}
+
 }

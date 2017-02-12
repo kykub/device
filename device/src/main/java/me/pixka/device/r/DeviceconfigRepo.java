@@ -1,5 +1,6 @@
 package me.pixka.device.r;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -32,5 +33,24 @@ public interface DeviceconfigRepo extends CrudRepository<Deviceconfig, Long> {
 	Deviceconfig findById(Long id);
 
 	Deviceconfig findTop1ByOrderByIdDesc();
+
+	List<Deviceconfig> findByDevice_idAndEnable(Long id, boolean b);
+
+	Deviceconfig findTop1ByDevice_idAndLowtLessThanEqualAndHightGreaterThanEqualOrderByIdDesc(Long id, BigDecimal l,
+			BigDecimal h);
+
+	Deviceconfig findTop1ByDevice_idAndLowhLessThanEqualAndHighhGreaterThanEqualOrderByIdDesc(Long i, BigDecimal l,
+			BigDecimal h);
+
+	/**
+	 * ใช้หา One time job
+	 * 
+	 * @param id
+	 * @param b
+	 * @return
+	 */
+	Deviceconfig findTop1ByDevice_idAndOnetime(Long id, boolean b);
+
+	List<Deviceconfig> findByDevice_idAndIdGreaterThan(Long id, Long lastid);
 
 }

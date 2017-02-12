@@ -1,7 +1,9 @@
 package me.pixka.device.c;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -32,7 +34,58 @@ public class DeviceconfigUtil {
 		try {
 			// String get = url + mac;
 			String get = url + mac;
-			System.out.println("URL:" + get);
+			// System.out.println("URL:" + get);
+			re = http.get(get);
+			// System.out.println("Return value:" + re);
+			Deviceconfig dfs = g.fromJson(re, Deviceconfig.class);
+			dfs.setRefid(dfs.getId());
+			return dfs;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+
+	/**
+	 * ใช้สำหรับ Load deviceconfig เป็นชุด เริ่มจาก lastrefid
+	 * 
+	 * @param url
+	 * @param mac
+	 * @param lastrefid
+	 * @return
+	 */
+	public List<Deviceconfig> loadsfromhttp(String url, String mac, long lastrefid) {
+		String re = null;
+		try {
+			String get = url + mac + "/" + lastrefid;
+			System.out.println("Load device config "+get);
+			re = http.get(get);
+			Deviceconfig[] dfs = g.fromJson(re, Deviceconfig[].class);
+			return (List<Deviceconfig>) Arrays.asList(dfs);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+
+	/**
+	 * Load Deviceconfig เริ่มจาก refid หรือมากกว่านั้น
+	 * 
+	 * @param url
+	 * @param mac
+	 * @param refid
+	 * @return
+	 */
+	public Deviceconfig loadDeviceconfigfromhttp(String url, String mac, Long refid) {
+		String re = null;
+		try {
+			if (refid == null)
+				refid = 0L;
+			// String get = url + mac;
+			String get = url + mac + "/" + refid;
+			// System.out.println("URL:" + get);
 			re = http.get(get);
 			// System.out.println("Return value:" + re);
 			Deviceconfig dfs = g.fromJson(re, Deviceconfig.class);
@@ -121,12 +174,10 @@ public class DeviceconfigUtil {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}
-		else{
-			System.out.println("Have Device config already no need to save");	
+		} else {
+			System.out.println("Have Device config already no need to save");
 		}
 
-		
 	}
 
 	public Deviceconfig loadfromdevice() {
@@ -160,16 +211,16 @@ public class DeviceconfigUtil {
 	 * @return
 	 */
 	public Watertiming loadWatertiming(String url, Long id, BigDecimal tmp) {
-		System.out.println("========== Load water config  =============");
+		// System.out.println("========== Load water config =============");
 		String re = null;
 		try {
 			String get = url + id + "/" + tmp;
-			System.out.println("GETURL:" + get);
+			// System.out.println("GETURL:" + get);
 			// System.out.println("Read Watertiming URL:" + get);
 			re = http.get(get);
 			// System.out.println("Return water value:" + re);
 			Watertiming dfs = g.fromJson(re, Watertiming.class);
-			System.out.println("load http ok");
+			// System.out.println("load http ok");
 			return dfs;
 		} catch (Exception e) {
 			e.printStackTrace();

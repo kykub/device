@@ -1,7 +1,9 @@
 package me.pixka.device.c;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -79,7 +81,6 @@ public class DeviceconfigControl {
 	}
 
 	@CrossOrigin
-	// produces = "application/json", consumes = "application/json"
 	@RequestMapping(value = "/getdeviceconfigmac/{mac}", method = RequestMethod.GET)
 	@ResponseBody
 	public Deviceconfig get(@PathVariable("mac") String mac) throws JsonProcessingException, IOException {
@@ -110,6 +111,19 @@ public class DeviceconfigControl {
 
 	}
 
+
+	@CrossOrigin
+	@RequestMapping(value = "/getdeviceconfigmac/{mac}/{refid}", method = RequestMethod.GET)
+	@ResponseBody
+	public List get(@PathVariable("mac") String mac,@PathVariable("refid") Long refid) throws JsonProcessingException, IOException {
+
+		// หาว่าช่วงนี้มีการกำหนดหรือเปล่า
+		return devicecfservice.findRefid(mac, refid);
+
+		
+
+	}
+
 	@CrossOrigin
 	// produces = "application/json", consumes = "application/json"
 	@RequestMapping(value = "/endjob/{id}", method = RequestMethod.GET)
@@ -133,13 +147,123 @@ public class DeviceconfigControl {
 	}
 
 	public Deviceconfig last() {
-	
+
 		return devicecfservice.last();
 	}
 
 	public Deviceconfig save(Deviceconfig deviceconfig) {
 		return devicecfservice.save(deviceconfig);
 	}
+
+	@CrossOrigin
+	@RequestMapping(value = "/finddeviceconfigbyh/{id}/{h}", method = RequestMethod.GET)
+	@ResponseBody
+	public Deviceconfig findbyh(@PathVariable("id") Long id, @PathVariable("h") BigDecimal h)
+			throws JsonProcessingException, IOException {
+		// หาว่าช่วงนี้มีการกำหนดหรือเปล่า
+		Deviceconfig deviceconfig = devicecfservice.findByH(id, h);
+		return deviceconfig;
+
+	}
+
+	@CrossOrigin
+	@RequestMapping(value = "/finddeviceconfigbymach/{mac}/{h}", method = RequestMethod.GET)
+	@ResponseBody
+	public Deviceconfig findbymach(@PathVariable("mac") String mac, @PathVariable("h") BigDecimal h)
+			throws JsonProcessingException, IOException {
+		// หาว่าช่วงนี้มีการกำหนดหรือเปล่า
+		Device device = ds.findByMac(mac);
+		if (device != null) {
+			Deviceconfig deviceconfig = devicecfservice.findByH(device.getId(), h);
+			return deviceconfig;
+		}
+
+		return null;
+	}
+
+	@CrossOrigin
+	@RequestMapping(value = "/finddeviceconfigbyt/{id}/{t}", method = RequestMethod.GET)
+	@ResponseBody
+	public Deviceconfig findbyt(@PathVariable("id") Long id, @PathVariable("t") BigDecimal t)
+			throws JsonProcessingException, IOException {
+		// หาว่าช่วงนี้มีการกำหนดหรือเปล่า
+		Deviceconfig deviceconfig = devicecfservice.findByT(id, t);
+		return deviceconfig;
+
+	}
+
+	@CrossOrigin
+	@RequestMapping(value = "/finddeviceconfigbymact/{mac}/{t}", method = RequestMethod.GET)
+	@ResponseBody
+	public Deviceconfig findbyt(@PathVariable("mac") String mac, @PathVariable("t") BigDecimal t)
+			throws JsonProcessingException, IOException {
+		// หาว่าช่วงนี้มีการกำหนดหรือเปล่า
+		Device device = ds.findByMac(mac);
+		if (device != null) {
+
+			Deviceconfig deviceconfig = devicecfservice.findByT(device.getId(), t);
+			return deviceconfig;
+		}
+		return null;
+
+	}
+
+	@CrossOrigin
+	@RequestMapping(value = "/loadconfigs/{mac}", method = RequestMethod.GET)
+	@ResponseBody
+	public List<Deviceconfig> loadconfigs(@PathVariable("mac") String mac) throws JsonProcessingException, IOException {
+		// หาว่าช่วงนี้มีการกำหนดหรือเปล่า
+		Device device = ds.findByMac(mac);
+		if (device != null) {
+			return devicecfservice.finds(device.getId(), true);
+		}
+		return null;
+
+	}
 	
 	
+	@CrossOrigin
+	@RequestMapping(value = "/deviceconfig/load/{mac}/{lastid}", method = RequestMethod.GET)
+	@ResponseBody
+	public List<Deviceconfig> loadconfigs(@PathVariable("mac") String mac,@PathVariable("lastid") Long lastid) throws JsonProcessingException, IOException {
+		// หาว่าช่วงนี้มีการกำหนดหรือเปล่า
+		Device device = ds.findByMac(mac);
+		
+		if (device != null) {
+		//	return devicecfservice.finds(device.getId(), true);
+			return devicecfservice.findByLast(device.getId(),lastid);
+		}
+		return null;
+
+	}
+
+	@CrossOrigin
+	@RequestMapping(value = "/loadonetimedeviceconfig/{mac}", method = RequestMethod.GET)
+	@ResponseBody
+	public Deviceconfig loadonetimeconfig(@PathVariable("mac") String mac) throws JsonProcessingException, IOException {
+		// หาว่าช่วงนี้มีการกำหนดหรือเปล่า
+		Device device = ds.findByMac(mac);
+		if (device != null) {
+
+			Deviceconfig task = devicecfservice.findonetimeconfig(device.getId());
+			// devicecfservice.delete(task);
+
+			return task;
+		}
+		return null;
+
+	}
+
+	/**
+	 * ใช้สำหรับ บอก Server ว่า Deviceconfig นี้ run เสร็จแล้วจะ ลบออกจากระบบ
+	 * @param id
+	 */
+	@CrossOrigin
+	@RequestMapping(value = "/finishedonetime/{id}", method = RequestMethod.GET)
+	// @ResponseBody
+	public void runOnetimeCompelete(@PathVariable("id") Long id) {
+
+		devicecfservice.delete(id);
+
+	}
 }

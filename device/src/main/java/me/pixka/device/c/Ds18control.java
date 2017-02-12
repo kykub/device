@@ -127,7 +127,7 @@ public class Ds18control {
 			d.setAdddate(tdf.format(data.getAdddate()));
 			d.setTmp(data.getTmp());
 
-			System.out.println("Found last item :" + d);
+			System.out.println("Found last DS18b20 :" + d);
 			return d;
 		}
 
